@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Professor Nur Alam MD | Academic Portfolio</title>
+  <meta name="description" content="Academic portfolio for Professor Nur Alam MD, focused on AI, Data Science, graduate education, student mobility and global academic collaboration." />
+  <meta name="theme-color" content="#071628" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home"><span class="seal">NA</span><span><strong>Professor Nur Alam MD</strong><em>Academic Portfolio</em></span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span><b>Menu</b></button>
+    <nav id="site-nav" class="site-nav">
+      <a href="#about">About</a>
+      <a href="#focus">Focus</a>
+      <a href="#tool">Fit Checker</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">K-Global Graduate School • AI & Data Science • Global Academic Collaboration</p>
+        <h1>Bridging students, research and universities across continents.</h1>
+        <p>Professor Nur Alam MD is an academic leader at Kyungdong University Global, working at the intersection of artificial intelligence, graduate education, student mobility and international university partnerships.</p>
+        <div class="actions"><a class="button" href="#contact">Request Collaboration</a><a class="button ghost" href="#tool">Check Graduate Fit</a></div>
+      </div>
+      <aside class="profile-card image-card"><div class="placeholder">Professor Nur Alam MD</div><h2>Dean of Graduate School</h2><p>Kyungdong University Global, South Korea</p></aside>
+    </section>
+
+    <section id="about" class="section two-col">
+      <div><p class="eyebrow">About</p><h2>A global academic profile with Bangladeshi roots and South Korean leadership.</h2></div>
+      <div><p>Professor Nur Alam MD serves at Kyungdong University Global as Dean of Graduate School and Associate Professor. His academic background spans Computer Science, Information Technology, and AI and Computer Vision.</p><p class="note">Personal contact details and official publication lists should be verified before launch. This version avoids unsupported claims and does not invent testimonials, awards or research citations.</p></div>
+    </section>
+
+    <section id="focus" class="section">
+      <p class="eyebrow">Academic focus</p><h2>Four pillars of the portfolio</h2>
+      <div class="grid four">
+        <article><span>01</span><h3>AI & Data Science</h3><p>Graduate-level teaching and leadership in technology convergence, artificial intelligence and applied data science.</p></article>
+        <article><span>02</span><h3>Graduate Education</h3><p>Clear pathways for students exploring serious internationally oriented graduate programs.</p></article>
+        <article><span>03</span><h3>Global Partnerships</h3><p>Institutional collaboration, student exchange, academic visits, seminars and cross-border university relationships.</p></article>
+        <article><span>04</span><h3>Student Mobility</h3><p>Guidance-first communication for students and families considering South Korea as an academic destination.</p></article>
+      </div>
+    </section>
+
+    <section id="tool" class="section tool-grid">
+      <div><p class="eyebrow">Useful student tool</p><h2>Graduate Pathway Fit Checker</h2><p class="note">This is only a first-step guidance tool. It is not an admission decision, scholarship promise or official university evaluation.</p></div>
+      <form id="fitChecker" class="fit-checker">
+        <label>Current education level<select name="degree" required><option value="">Select one</option><option value="bachelor">Bachelor completed / final year</option><option value="masters">Master's completed</option><option value="professional">Working professional</option><option value="other">Other background</option></select></label>
+        <label>Main interest<select name="interest" required><option value="">Select one</option><option value="ai">AI & Data Science</option><option value="business">International Business</option><option value="hospitality">Hospitality & Tourism</option><option value="collaboration">Research / university collaboration</option></select></label>
+        <label>Academic readiness<select name="readiness" required><option value="">Select one</option><option value="strong">Strong GPA / strong academic record</option><option value="medium">Average profile, needs guidance</option><option value="early">Still preparing documents</option></select></label>
+        <label>English readiness<select name="english" required><option value="">Select one</option><option value="ready">IELTS / TOEFL / English-medium background ready</option><option value="preparing">Preparing English documents</option><option value="not-ready">Not ready yet</option></select></label>
+        <button class="button" type="submit">Check Fit</button>
+        <div id="fitResult" class="fit-result" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section id="gallery" class="section">
+      <p class="eyebrow">Gallery</p><h2>Academic and international engagement</h2>
+      <div class="grid gallery">
+        <div class="image-card"><div class="placeholder">KDU seminar</div></div>
+        <div class="image-card"><div class="placeholder">Student meeting</div></div>
+        <div class="image-card"><div class="placeholder">International collaboration</div></div>
+        <div class="image-card"><div class="placeholder">Academic consultation</div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <p class="eyebrow">Contact</p><h2>Start a serious academic conversation.</h2>
+      <form id="contactForm" class="contact-form">
+        <label>Name<input name="name" required /></label>
+        <label>Email<input name="email" type="email" required /></label>
+        <label>Inquiry type<select name="type" required><option value="Collaboration">Collaboration</option><option value="Student guidance">Student guidance</option><option value="Seminar invitation">Seminar invitation</option></select></label>
+        <label>Message<textarea name="message" rows="5" required></textarea></label>
+        <button class="button" type="submit">Open Email Draft</button>
+      </form>
+      <div class="social"><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></div>
+    </section>
+  </main>
+
+  <footer><p>© Professor Nur Alam MD. <span>Built by Keystone.</span></p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
