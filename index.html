@@ -1,93 +1,750 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Professor Nur Alam MD | Academic Portfolio</title>
-  <meta name="description" content="Academic portfolio for Professor Nur Alam MD, focused on AI, Data Science, graduate education, student mobility and global academic collaboration." />
-  <meta name="theme-color" content="#071628" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ananna Drawings — Personalised Arabic Calligraphy</title>
+<meta name="description" content="Hand-painted Islamic calligraphy and Arabic art pieces, personalised for you. Custom orders, Quranic verses, mini canvas gifts and home décor." />
+<meta property="og:title" content="Ananna Drawings — Personalised Arabic Calligraphy" />
+<meta property="og:description" content="Hand-painted Islamic calligraphy. Custom orders, Quranic verses, mini canvas gifts." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; }
+body { font-family: 'Inter', sans-serif; background: #050810; color: #fff; }
+
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e4c46e;
+  --gold-dim: rgba(201,168,76,0.18);
+  --bg: #050810;
+}
+
+/* ── Scroll Video ── */
+#scroll-video-container {
+  position: fixed; inset: 0; z-index: -10;
+  background: var(--bg); top: -20%;
+}
+#scroll-video-container canvas,
+#scroll-video-container video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+#scroll-video-container .overlay {
+  position: absolute; inset: 0; background: rgba(5,8,16,0.38);
+}
+
+/* ── Particles ── */
+#particles-canvas {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 3;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 2.5rem;
+  background: linear-gradient(to bottom, rgba(5,8,16,0.75) 0%, transparent 100%);
+  backdrop-filter: blur(0px);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.8rem; text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-logo img {
+  width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  object-fit: cover; border: 1px solid var(--gold-dim);
+}
+.nav-logo-name {
+  font-family: 'Cormorant Garamond', serif; font-weight: 700;
+  font-size: 1.1rem; color: #fff; display: block; line-height: 1.2;
+}
+.nav-logo-tagline {
+  font-size: 0.58rem; color: var(--gold); letter-spacing: 0.18em;
+  text-transform: uppercase; display: block;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 2rem;
+}
+.nav-links a {
+  font-size: 0.85rem; color: rgba(255,255,255,0.75);
+  text-decoration: none; transition: color 0.2s; letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-fb-icon { color: rgba(255,255,255,0.65); transition: color 0.2s; }
+.nav-fb-icon:hover { color: var(--gold); }
+.nav-fb-icon svg { width: 1.15rem; height: 1.15rem; display: block; }
+.nav-order-btn {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-size: 0.78rem; font-weight: 500; border-radius: 2rem;
+  padding: 0.45rem 1.1rem; text-decoration: none;
+  transition: all 0.22s; letter-spacing: 0.06em; white-space: nowrap;
+}
+.nav-order-btn:hover { background: var(--gold); color: var(--bg); }
+
+/* ── Hero ── */
+#hero {
+  position: relative; height: 100vh; width: 100%;
+  display: flex; flex-direction: column;
+}
+#hero .hero-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(5,8,16,0.92) 0%,
+    rgba(5,8,16,0.35) 55%,
+    transparent 100%
+  );
+}
+#hero .hero-content {
+  position: relative; z-index: 10; flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  text-align: center; padding: 0 1.5rem 5.5rem;
+}
+.hero-eyebrow {
+  font-size: 0.72rem; color: var(--gold); margin-bottom: 1.2rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+#hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.1rem, 6.5vw, 5.25rem);
+  font-weight: 600; line-height: 1.1; max-width: 52rem;
+}
+#hero h1 em { font-style: italic; }
+#hero h1 .gold { color: var(--gold); }
+.hero-desc {
+  font-size: 0.975rem; color: rgba(255,255,255,0.6);
+  margin-top: 1.25rem; max-width: 28rem; line-height: 1.75;
+}
+.hero-ctas {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 2.25rem; flex-wrap: wrap; justify-content: center;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  background: var(--gold); color: var(--bg);
+  font-weight: 600; border-radius: 2rem;
+  padding: 0.85rem 2rem; font-size: 0.88rem;
+  text-decoration: none; transition: background 0.22s, transform 0.2s;
+  letter-spacing: 0.03em;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  border: 1px solid rgba(255,255,255,0.22); color: rgba(255,255,255,0.85);
+  border-radius: 2rem; padding: 0.85rem 2rem; font-size: 0.88rem;
+  text-decoration: none; transition: border-color 0.22s, color 0.22s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.hero-arrow {
+  position: relative; z-index: 10;
+  display: flex; justify-content: center; padding-bottom: 1.75rem;
+}
+.hero-arrow svg {
+  width: 1.4rem; height: 1.4rem; color: var(--gold);
+  opacity: 0.55; animation: bounce 1.8s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+/* ── Fixed Cards ── */
+#fixed-cards {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 4;
+  padding: 2rem 2.5rem; opacity: 0; pointer-events: none;
+}
+.cards-grid {
+  max-width: 74rem; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+}
+.feat-card {
+  border-left: 1px solid var(--gold-dim); padding-left: 1.5rem;
+}
+.feat-card-num {
+  font-size: 0.68rem; color: var(--gold); letter-spacing: 0.18em;
+  text-transform: uppercase; margin-bottom: 0.65rem;
+}
+.feat-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem; font-weight: 700; color: #fff; margin-bottom: 0.65rem;
+}
+.feat-card p { color: rgba(255,255,255,0.58); font-size: 0.83rem; line-height: 1.72; }
+
+/* ── Section 3 — Brand reveal ── */
+#section-three {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 0 2.5rem 8rem;
+}
+.s3-inner {
+  position: relative; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  opacity: 0; transform: translateY(28px); filter: blur(10px);
+  transition: opacity 1.3s ease-out, transform 1.3s ease-out, filter 1.3s ease-out;
+}
+.s3-inner.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+.s3-pre {
+  font-size: 0.72rem; color: var(--gold);
+  letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 1rem;
+}
+.s3-inner h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 11vw, 7.5rem); font-weight: 700; line-height: 1;
+  background: linear-gradient(130deg, #ffffff 0%, var(--gold) 45%, #ffffff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gallery ── */
+#gallery {
+  position: relative; z-index: 2;
+  background: linear-gradient(to bottom, var(--bg) 0%, #090d1a 60%, var(--bg) 100%);
+  padding: 7rem 2.5rem 8rem;
+}
+.section-eyebrow {
+  font-size: 0.72rem; color: var(--gold); letter-spacing: 0.22em;
+  text-transform: uppercase; display: block; margin-bottom: 0.9rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 600;
+}
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.gallery-masonry {
+  max-width: 74rem; margin: 0 auto;
+  columns: 3; column-gap: 1rem;
+}
+.gallery-item {
+  break-inside: avoid; margin-bottom: 1rem;
+  border-radius: 0.85rem; overflow: hidden;
+  position: relative; cursor: zoom-in;
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.gallery-item.in-view { opacity: 1; transform: translateY(0); }
+.gallery-item img {
+  width: 100%; display: block;
+  transition: transform 0.5s ease;
+  filter: brightness(0.92) saturate(1.05);
+}
+.gallery-item:hover img { transform: scale(1.04); filter: brightness(1) saturate(1.1); }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,8,16,0.65) 0%, transparent 55%);
+  opacity: 0; transition: opacity 0.32s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+/* ── Lightbox ── */
+#lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(5,8,16,0.94); backdrop-filter: blur(10px);
+  display: none; align-items: center; justify-content: center;
+  padding: 2rem;
+}
+#lightbox.open { display: flex; }
+#lightbox img {
+  max-width: 90vw; max-height: 88vh;
+  object-fit: contain; border-radius: 0.75rem;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+}
+.lb-close {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  font-size: 2rem; cursor: pointer; line-height: 1;
+  transition: color 0.2s;
+}
+.lb-close:hover { color: var(--gold); }
+
+/* ── Services strip ── */
+#services {
+  position: relative; z-index: 2;
+  padding: 5rem 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.services-inner {
+  max-width: 74rem; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+}
+.service-item { text-align: center; padding: 0 1rem; }
+.service-icon {
+  width: 3rem; height: 3rem; border-radius: 50%;
+  background: var(--gold-dim); border: 1px solid var(--gold-dim);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem; font-size: 1.35rem;
+}
+.service-item h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 600; margin-bottom: 0.6rem;
+}
+.service-item p { color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.7; }
+
+/* ── Contact ── */
+#contact {
+  position: relative; z-index: 2;
+  padding: 8rem 2.5rem;
+  text-align: center;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%);
+}
+.contact-inner { max-width: 40rem; margin: 0 auto; }
+.contact-inner h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 600;
+  line-height: 1.2; margin-bottom: 1.25rem;
+}
+.contact-inner p {
+  color: rgba(255,255,255,0.58); line-height: 1.8;
+  margin-bottom: 2.5rem; font-size: 0.975rem;
+}
+.gold-line {
+  width: 3rem; height: 1px; background: var(--gold);
+  opacity: 0.4; margin: 2.5rem auto;
+}
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: var(--gold); color: var(--bg);
+  font-weight: 700; border-radius: 2rem;
+  padding: 1rem 2.5rem; font-size: 0.95rem;
+  text-decoration: none; transition: background 0.22s, transform 0.2s;
+  letter-spacing: 0.02em;
+}
+.contact-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+.contact-btn svg { width: 1.1rem; height: 1.1rem; }
+
+/* ── Footer ── */
+footer {
+  position: relative; z-index: 2;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2.25rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+.footer-right {
+  display: flex; align-items: center; gap: 1.25rem;
+}
+.footer-right a { color: rgba(255,255,255,0.35); transition: color 0.2s; text-decoration: none; font-size: 0.78rem; }
+.footer-right a:hover { color: var(--gold); }
+.footer-social-icon svg { width: 1rem; height: 1rem; display: block; }
+
+/* ── Content wrapper (above fixed cards) ── */
+#content { position: relative; z-index: 2; }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  nav { padding: 0.9rem 1.25rem; }
+  .nav-links { display: none; }
+  .nav-order-btn { display: none; }
+  #hero .hero-content { padding: 0 1.25rem 5rem; }
+  #fixed-cards { padding: 1.25rem 1rem; }
+  .cards-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .feat-card { padding-left: 1rem; }
+  #section-three { padding: 0 1.25rem 5rem; }
+  #gallery { padding: 5rem 1.25rem 6rem; }
+  .gallery-masonry { columns: 2; column-gap: 0.75rem; }
+  .gallery-item { margin-bottom: 0.75rem; }
+  #services { padding: 4rem 1.25rem; }
+  .services-inner { grid-template-columns: 1fr; gap: 2rem; }
+  #contact { padding: 5rem 1.25rem; }
+  footer { padding: 1.75rem 1.25rem; flex-direction: column; align-items: center; text-align: center; }
+}
+@media (max-width: 480px) {
+  .gallery-masonry { columns: 1; }
+  #hero h1 { font-size: 2rem; }
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#home"><span class="seal">NA</span><span><strong>Professor Nur Alam MD</strong><em>Academic Portfolio</em></span></a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span><b>Menu</b></button>
-    <nav id="site-nav" class="site-nav">
-      <a href="#about">About</a>
-      <a href="#focus">Focus</a>
-      <a href="#tool">Fit Checker</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
 
-  <main id="home">
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">K-Global Graduate School • AI & Data Science • Global Academic Collaboration</p>
-        <h1>Bridging students, research and universities across continents.</h1>
-        <p>Professor Nur Alam MD is an academic leader at Kyungdong University Global, working at the intersection of artificial intelligence, graduate education, student mobility and international university partnerships.</p>
-        <div class="actions"><a class="button" href="#contact">Request Collaboration</a><a class="button ghost" href="#tool">Check Graduate Fit</a></div>
+<!-- Scroll Video Background -->
+<div id="scroll-video-container">
+  <canvas id="video-canvas"></canvas>
+  <video id="video-fallback" muted playsinline preload="auto" crossorigin="anonymous"
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4"
+  ></video>
+  <div class="overlay"></div>
+</div>
+
+<!-- Particles -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- Fixed Cards (scroll-driven) -->
+<div id="fixed-cards">
+  <div class="cards-grid">
+    <div class="feat-card">
+      <div class="feat-card-num">01</div>
+      <h3>Custom Orders</h3>
+      <p>Your name, a Quranic verse, or a phrase that means the world to you — hand-painted in the ancient art of Arabic calligraphy, crafted just for you.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-num">02</div>
+      <h3>Islamic Artwork</h3>
+      <p>Allah's name, Bismillah, Surah Al-Ikhlas, Al-Falaq, An-Nas and beyond — each artwork painted with devotion using watercolour, acrylic, and ink.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-num">03</div>
+      <h3>Gifts & Décor</h3>
+      <p>Mini canvas pieces on easel stands, framed artworks, and bespoke keepsakes — meaningful gifts for Eid, weddings, or any occasion rooted in faith.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <a class="nav-logo" href="#hero">
+    <img src="assets/logo.png" alt="Ananna Drawings logo" />
+    <span>
+      <span class="nav-logo-name">Ananna drawings</span>
+      <span class="nav-logo-tagline">Personalised Arabic Calligraphy</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="#gallery">Gallery</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Order</a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-fb-icon" href="https://www.facebook.com/people/Ananna-drawings/61576693893497/" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+    </a>
+    <a class="nav-order-btn" href="https://www.facebook.com/people/Ananna-drawings/61576693893497/" target="_blank" rel="noopener">Order Now &rarr;</a>
+  </div>
+</nav>
+
+<!-- Main scroll content (video scrub zone) -->
+<div id="content">
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-grad"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Personalised Arabic Calligraphy</p>
+      <h1>
+        Where <em>faith</em> meets the beauty of
+        <span class="gold">handwritten art.</span>
+      </h1>
+      <p class="hero-desc">Each piece is hand-painted, one of a kind, and rooted in the sacred tradition of Arabic calligraphy.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="https://www.facebook.com/people/Ananna-drawings/61576693893497/" target="_blank" rel="noopener">
+          Order a Custom Piece &rarr;
+        </a>
+        <a class="btn-ghost" href="#gallery">View Gallery</a>
       </div>
-      <aside class="profile-card image-card hero-card">
-        <div class="photo-wrap"><img src="assets/photos/hero.jpg" alt="Professor Nur Alam MD at an academic event" onerror="this.classList.add('is-missing')" /><div class="placeholder">Upload hero.jpg</div></div>
-        <h2>Dean of Graduate School</h2><p>Kyungdong University Global, South Korea</p>
-      </aside>
-    </section>
+    </div>
+    <div class="hero-arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+      </svg>
+    </div>
+  </section>
 
-    <section id="about" class="section two-col">
-      <div><p class="eyebrow">About</p><h2>A global academic profile with Bangladeshi roots and South Korean leadership.</h2></div>
-      <div><p>Professor Nur Alam MD serves at Kyungdong University Global as Dean of Graduate School and Associate Professor. His academic background spans Computer Science, Information Technology, and AI and Computer Vision.</p><p class="note">Personal contact details and official publication lists should be verified before launch. This version avoids unsupported claims and does not invent testimonials, awards or research citations.</p></div>
-    </section>
+  <!-- Scroll spacer -->
+  <div style="height:150vh;"></div>
 
-    <section id="focus" class="section">
-      <p class="eyebrow">Academic focus</p><h2>Four pillars of the portfolio</h2>
-      <div class="grid four">
-        <article><span>01</span><h3>AI & Data Science</h3><p>Graduate-level teaching and leadership in technology convergence, artificial intelligence and applied data science.</p></article>
-        <article><span>02</span><h3>Graduate Education</h3><p>Clear pathways for students exploring serious internationally oriented graduate programs.</p></article>
-        <article><span>03</span><h3>Global Partnerships</h3><p>Institutional collaboration, student exchange, academic visits, seminars and cross-border university relationships.</p></article>
-        <article><span>04</span><h3>Student Mobility</h3><p>Guidance-first communication for students and families considering South Korea as an academic destination.</p></article>
-      </div>
-    </section>
+  <!-- Cards trigger zone -->
+  <div id="cards-trigger" style="height:200vh;"></div>
 
-    <section id="tool" class="section tool-grid">
-      <div><p class="eyebrow">Useful student tool</p><h2>Graduate Pathway Fit Checker</h2><p class="note">This is only a first-step guidance tool. It is not an admission decision, scholarship promise or official university evaluation.</p></div>
-      <form id="fitChecker" class="fit-checker">
-        <label>Current education level<select name="degree" required><option value="">Select one</option><option value="bachelor">Bachelor completed / final year</option><option value="masters">Master's completed</option><option value="professional">Working professional</option><option value="other">Other background</option></select></label>
-        <label>Main interest<select name="interest" required><option value="">Select one</option><option value="ai">AI & Data Science</option><option value="business">International Business</option><option value="hospitality">Hospitality & Tourism</option><option value="collaboration">Research / university collaboration</option></select></label>
-        <label>Academic readiness<select name="readiness" required><option value="">Select one</option><option value="strong">Strong GPA / strong academic record</option><option value="medium">Average profile, needs guidance</option><option value="early">Still preparing documents</option></select></label>
-        <label>English readiness<select name="english" required><option value="">Select one</option><option value="ready">IELTS / TOEFL / English-medium background ready</option><option value="preparing">Preparing English documents</option><option value="not-ready">Not ready yet</option></select></label>
-        <button class="button" type="submit">Check Fit</button>
-        <div id="fitResult" class="fit-result" aria-live="polite"></div>
-      </form>
-    </section>
+  <!-- Scroll spacer -->
+  <div style="height:100vh;"></div>
 
-    <section id="gallery" class="section">
-      <p class="eyebrow">Gallery</p><h2>Academic and international engagement</h2>
-      <div class="grid gallery">
-        <figure class="image-card"><div class="photo-wrap"><img src="assets/photos/photo-1.jpg" alt="Professor Nur Alam MD at Kyungdong University" onerror="this.classList.add('is-missing')" /><div class="placeholder">Upload photo-1.jpg</div></div><figcaption>Academic engagement at Kyungdong University</figcaption></figure>
-        <figure class="image-card"><div class="photo-wrap"><img src="assets/photos/photo-2.jpg" alt="Professor Nur Alam MD with KDU Global materials" onerror="this.classList.add('is-missing')" /><div class="placeholder">Upload photo-2.jpg</div></div><figcaption>Student guidance and institutional outreach</figcaption></figure>
-        <figure class="image-card"><div class="photo-wrap"><img src="assets/photos/photo-3.jpg" alt="International meeting connected with Kyungdong University" onerror="this.classList.add('is-missing')" /><div class="placeholder">Upload photo-3.jpg</div></div><figcaption>International academic meeting</figcaption></figure>
-        <figure class="image-card"><div class="photo-wrap"><img src="assets/photos/photo-4.jpg" alt="Professor Nur Alam MD in an academic consultation meeting" onerror="this.classList.add('is-missing')" /><div class="placeholder">Upload photo-4.jpg</div></div><figcaption>Academic consultation</figcaption></figure>
-        <figure class="image-card"><div class="photo-wrap"><img src="assets/photos/photo-5.jpg" alt="KDU Global Immersion Program event" onerror="this.classList.add('is-missing')" /><div class="placeholder">Upload photo-5.jpg</div></div><figcaption>KDU Global Immersion Program</figcaption></figure>
-        <figure class="image-card"><div class="photo-wrap"><img src="assets/photos/photo-6.jpg" alt="Kyungdong University admission and seminar event" onerror="this.classList.add('is-missing')" /><div class="placeholder">Upload photo-6.jpg</div></div><figcaption>Admission and seminar engagement</figcaption></figure>
-      </div>
-    </section>
+  <!-- Section 3 — Brand reveal -->
+  <section id="section-three">
+    <div class="s3-inner" id="s3-inner">
+      <p class="s3-pre">Crafted with devotion</p>
+      <h2>Ananna drawings</h2>
+    </div>
+  </section>
 
-    <section id="contact" class="section contact">
-      <p class="eyebrow">Contact</p><h2>Start a serious academic conversation.</h2>
-      <form id="contactForm" class="contact-form">
-        <label>Name<input name="name" required /></label>
-        <label>Email<input name="email" type="email" required /></label>
-        <label>Inquiry type<select name="type" required><option value="Collaboration">Collaboration</option><option value="Student guidance">Student guidance</option><option value="Seminar invitation">Seminar invitation</option></select></label>
-        <label>Message<textarea name="message" rows="5" required></textarea></label>
-        <button class="button" type="submit">Open Email Draft</button>
-      </form>
-      <div class="social"><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></div>
-    </section>
-  </main>
+</div><!-- /#content -->
 
-  <footer><p>© Professor Nur Alam MD. <span>Built by Keystone.</span></p></footer>
-  <script src="script.js"></script>
+<!-- Gallery -->
+<section id="gallery">
+  <div class="section-header">
+    <span class="section-eyebrow">Our Work</span>
+    <h2 class="section-title">Every stroke tells a story.</h2>
+  </div>
+  <div class="gallery-masonry">
+    <div class="gallery-item" data-src="assets/photos/art-1.jpg">
+      <img src="assets/photos/art-1.jpg" alt="Allah calligraphy in pink on black paper" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-7.jpg">
+      <img src="assets/photos/art-7.jpg" alt="Kaaba painting in watercolour" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-11.jpg">
+      <img src="assets/photos/art-11.jpg" alt="Allah calligraphy in orange on black" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-3.jpg">
+      <img src="assets/photos/art-3.jpg" alt="Surah An-Nas calligraphy on green background" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-2.jpg">
+      <img src="assets/photos/art-2.jpg" alt="Allah calligraphy with red watercolour wash" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-10.jpg">
+      <img src="assets/photos/art-10.jpg" alt="Allah mini canvas on stand with flowers" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-9.jpg">
+      <img src="assets/photos/art-9.jpg" alt="Bismillah calligraphy in green on black" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-5.jpg">
+      <img src="assets/photos/art-5.jpg" alt="Surah calligraphy on blue background" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-8.jpg">
+      <img src="assets/photos/art-8.jpg" alt="Arabic calligraphy on grey with flowers" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-4.jpg">
+      <img src="assets/photos/art-4.jpg" alt="Allah calligraphy in red marker style" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+    <div class="gallery-item" data-src="assets/photos/art-6.jpg">
+      <img src="assets/photos/art-6.jpg" alt="Allah calligraphy in yellow with watermelon" loading="lazy" />
+      <div class="gallery-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="services-inner">
+    <div class="service-item">
+      <div class="service-icon">✦</div>
+      <h3>Made to Order</h3>
+      <p>Every piece is created fresh for you — no prints, no copies. You receive a one-of-a-kind original, hand-painted with care.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-icon">◆</div>
+      <h3>Quranic Verse Art</h3>
+      <p>Choose any verse from the Quran. We'll render it beautifully in calligraphy on black paper, canvas, or watercolour background.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-icon">✿</div>
+      <h3>Gift Wrapping</h3>
+      <p>Beautifully presented for Eid, weddings, birthdays, and housewarmings — the perfect meaningful gift for any Muslim household.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-inner">
+    <span class="section-eyebrow">Commission a Piece</span>
+    <h2>Ready to own a piece of sacred art?</h2>
+    <div class="gold-line"></div>
+    <p>Reach out on Facebook to discuss your custom order — a name, a verse, a phrase. We'll craft it into something beautiful, just for you.</p>
+    <a class="contact-btn" href="https://www.facebook.com/people/Ananna-drawings/61576693893497/" target="_blank" rel="noopener">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+      Message on Facebook
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Ananna drawings. All rights reserved.</p>
+  <div class="footer-right">
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Order</a>
+    <a class="footer-social-icon" href="https://www.facebook.com/people/Ananna-drawings/61576693893497/" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-close" id="lb-close" aria-label="Close">&times;</button>
+  <img id="lb-img" src="" alt="" />
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ── Scroll Video ─────────────────────────────────────────────────
+  const VIDEO_URL = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4';
+  const canvas = document.getElementById('video-canvas');
+  const videoEl = document.getElementById('video-fallback');
+  const ctx = canvas.getContext('2d');
+  let frames = [], framesReady = false, lastFrameIndex = -1, videoSeeking = false;
+
+  function resizeCanvas() {
+    const dpr = Math.min(devicePixelRatio, 2);
+    const w = Math.round(canvas.getBoundingClientRect().width * dpr);
+    const h = Math.round(canvas.getBoundingClientRect().height * dpr);
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+    lastFrameIndex = -1;
+  }
+
+  async function extractFrames() {
+    try {
+      const blob = await (await fetch(VIDEO_URL, { mode: 'cors' })).blob();
+      const objUrl = URL.createObjectURL(blob);
+      const v = Object.assign(document.createElement('video'), {
+        muted: true, playsInline: true, crossOrigin: 'anonymous', preload: 'auto', src: objUrl
+      });
+      await new Promise((res, rej) => {
+        v.onloadedmetadata = res; v.onerror = rej; setTimeout(rej, 15000);
+      });
+      const sc = Math.min(1, 1280 / v.videoWidth);
+      const sw = Math.round(v.videoWidth * sc), sh = Math.round(v.videoHeight * sc);
+      const fc = Math.max(30, Math.min(120, Math.round(v.duration * 24)));
+      for (let i = 0; i < fc; i++) {
+        v.currentTime = (i / (fc - 1)) * (v.duration - 0.05);
+        await new Promise((res, rej) => {
+          const fn = () => { v.removeEventListener('seeked', fn); res(); };
+          v.addEventListener('seeked', fn); setTimeout(() => { v.removeEventListener('seeked', fn); rej(); }, 3000);
+        });
+        frames.push(await createImageBitmap(v, { resizeWidth: sw, resizeHeight: sh }));
+      }
+      if (frames.length) { framesReady = true; canvas.style.visibility = 'visible'; videoEl.style.display = 'none'; }
+      URL.revokeObjectURL(objUrl);
+    } catch (_) {}
+  }
+
+  function getScrollProgress() {
+    const vh = window.innerHeight;
+    const start = vh * 0.5, end = document.documentElement.scrollHeight - vh;
+    return Math.max(0, Math.min(1, (window.scrollY - start) / Math.max(1, end - start)));
+  }
+
+  function drawFrame(f) {
+    const cw = canvas.width, ch = canvas.height;
+    const s = Math.max(cw / f.width, ch / f.height);
+    ctx.drawImage(f, (cw - f.width * s) / 2, (ch - f.height * s) / 2, f.width * s, f.height * s);
+  }
+
+  function videoTick() {
+    const p = getScrollProgress();
+    if (framesReady && frames.length) {
+      const idx = Math.round(p * (frames.length - 1));
+      if (idx !== lastFrameIndex && frames[idx]) { lastFrameIndex = idx; drawFrame(frames[idx]); }
+    } else if (videoEl.duration && isFinite(videoEl.duration) && videoEl.readyState >= 1) {
+      const t = p * videoEl.duration;
+      if (!videoSeeking && Math.abs(videoEl.currentTime - t) > 0.001) { videoSeeking = true; videoEl.currentTime = t; }
+    }
+    requestAnimationFrame(videoTick);
+  }
+
+  videoEl.addEventListener('seeked', () => { videoSeeking = false; });
+  videoEl.addEventListener('stalled', () => { videoSeeking = false; });
+  videoEl.addEventListener('loadeddata', () => { videoEl.currentTime = 0; });
+  canvas.style.visibility = 'hidden';
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  requestAnimationFrame(videoTick);
+  extractFrames();
+
+  // ── Gold Particles ────────────────────────────────────────────────
+  const pc = document.getElementById('particles-canvas');
+  const px = pc.getContext('2d');
+  let parts = [];
+
+  function resizeParts() { pc.width = innerWidth; pc.height = innerHeight; makeParts(); }
+  function makeParts() {
+    parts = [];
+    const n = Math.floor((pc.width * pc.height) / 14000);
+    for (let i = 0; i < n; i++) {
+      parts.push({
+        x: Math.random() * pc.width, y: Math.random() * pc.height,
+        vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28,
+        r: Math.random() * 1.4 + .3,
+        op: Math.random() * .55 + .1,
+        gold: Math.random() > .55
+      });
+    }
+  }
+
+  function animParts() {
+    px.clearRect(0, 0, pc.width, pc.height);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = pc.width; if (p.x > pc.width) p.x = 0;
+      if (p.y < 0) p.y = pc.height; if (p.y > pc.height) p.y = 0;
+      px.beginPath(); px.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      px.fillStyle = p.gold ? `rgba(201,168,76,${p.op})` : `rgba(255,255,255,${p.op * .45})`;
+      px.fill();
+    }
+    requestAnimationFrame(animParts);
+  }
+  resizeParts(); window.addEventListener('resize', resizeParts); animParts();
+
+  // ── Hero fade on scroll ───────────────────────────────────────────
+  const heroEl = document.getElementById('hero');
+  window.addEventListener('scroll', () => {
+    heroEl.style.opacity = Math.max(0, 1 - window.scrollY / (innerHeight * .35));
+  }, { passive: true });
+
+  // ── Fixed Cards reveal ────────────────────────────────────────────
+  const fixedCards = document.getElementById('fixed-cards');
+  const cardsGrid = fixedCards.querySelector('.cards-grid');
+
+  function tickCards() {
+    const trigger = document.getElementById('cards-trigger');
+    const tTop = trigger.getBoundingClientRect().top + window.scrollY;
+    const tH = trigger.offsetHeight;
+    const sy = window.scrollY, vh = innerHeight;
+    const start = tTop - vh * .5, end = tTop + tH - vh * .3;
+    const prog = Math.max(0, Math.min(1, (sy - start) / Math.max(1, end - start)));
+    const fadeIn = Math.min(1, Math.max(0, (sy - (start - vh * .2)) / (vh * .2)));
+    const fadeOut = Math.min(1, Math.max(0, (end + vh * .3 - sy) / (vh * .3)));
+    const op = (sy >= start - vh * .2 && sy <= end + vh * .3) ? Math.min(fadeIn, fadeOut) : 0;
+    fixedCards.style.opacity = op;
+    fixedCards.style.pointerEvents = op > .1 ? 'auto' : 'none';
+    const pct = prog * 130;
+    const mask = innerWidth < 768
+      ? `linear-gradient(to bottom, black ${pct}%, transparent ${pct + 20}%)`
+      : `linear-gradient(to right, black ${pct}%, transparent ${pct + 15}%)`;
+    cardsGrid.style.maskImage = mask;
+    cardsGrid.style.webkitMaskImage = mask;
+    requestAnimationFrame(tickCards);
+  }
+  requestAnimationFrame(tickCards);
+
+  // ── Section 3 reveal ─────────────────────────────────────────────
+  const s3 = document.getElementById('s3-inner');
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) s3.classList.add('visible');
+  }, { threshold: .15 }).observe(s3);
+
+  // ── Gallery fade-in on scroll ─────────────────────────────────────
+  const gallObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+  }, { threshold: .08 });
+  document.querySelectorAll('.gallery-item').forEach(el => gallObs.observe(el));
+
+  // ── Lightbox ──────────────────────────────────────────────────────
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  document.querySelectorAll('.gallery-item').forEach(el => {
+    el.addEventListener('click', () => {
+      lbImg.src = el.dataset.src || el.querySelector('img').src;
+      lbImg.alt = el.querySelector('img').alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('lb-close').addEventListener('click', closeLb);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+})();
+</script>
 </body>
 </html>
