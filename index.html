@@ -27,10 +27,12 @@ body { font-family: 'Inter', sans-serif; background: #050810; color: #fff; }
 #scroll-video-container {
   position: fixed; inset: 0; z-index: -10;
   background: var(--bg); top: -20%;
+  will-change: transform; transform: translateZ(0);
 }
 #scroll-video-container canvas,
 #scroll-video-container video {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  will-change: transform; transform: translateZ(0);
 }
 #scroll-video-container .overlay {
   position: absolute; inset: 0; background: rgba(5,8,16,0.38);
@@ -589,101 +591,126 @@ footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
 (function () {
   'use strict';
 
-  // ── Scroll Video ─────────────────────────────────────────────────
   const VIDEO_URL = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4';
+  const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
+
+  // ── Video Background ──────────────────────────────────────────────
   const canvas = document.getElementById('video-canvas');
   const videoEl = document.getElementById('video-fallback');
-  const ctx = canvas.getContext('2d');
-  let frames = [], framesReady = false, lastFrameIndex = -1, videoSeeking = false;
 
-  function resizeCanvas() {
-    const dpr = Math.min(devicePixelRatio, 2);
-    const w = Math.round(canvas.getBoundingClientRect().width * dpr);
-    const h = Math.round(canvas.getBoundingClientRect().height * dpr);
-    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
-    lastFrameIndex = -1;
-  }
+  if (isMobileDevice) {
+    // Mobile: just autoplay the video — no frame extraction, no canvas, no scroll scrubbing
+    canvas.style.display = 'none';
+    videoEl.setAttribute('autoplay', '');
+    videoEl.setAttribute('loop', '');
+    videoEl.muted = true;
+    videoEl.playsInline = true;
+    videoEl.style.visibility = 'visible';
+    videoEl.style.opacity = '0.55';
+    videoEl.src = VIDEO_URL;
+    videoEl.load();
+    videoEl.play().catch(() => {});
+  } else {
+    // Desktop: scroll-driven frame scrubbing
+    const ctx = canvas.getContext('2d');
+    let frames = [], framesReady = false, lastFrameIndex = -1, videoSeeking = false;
 
-  async function extractFrames() {
-    try {
-      const blob = await (await fetch(VIDEO_URL, { mode: 'cors' })).blob();
-      const objUrl = URL.createObjectURL(blob);
-      const v = Object.assign(document.createElement('video'), {
-        muted: true, playsInline: true, crossOrigin: 'anonymous', preload: 'auto', src: objUrl
-      });
-      await new Promise((res, rej) => {
-        v.onloadedmetadata = res; v.onerror = rej; setTimeout(rej, 15000);
-      });
-      const sc = Math.min(1, 1280 / v.videoWidth);
-      const sw = Math.round(v.videoWidth * sc), sh = Math.round(v.videoHeight * sc);
-      const fc = Math.max(30, Math.min(120, Math.round(v.duration * 24)));
-      for (let i = 0; i < fc; i++) {
-        v.currentTime = (i / (fc - 1)) * (v.duration - 0.05);
-        await new Promise((res, rej) => {
-          const fn = () => { v.removeEventListener('seeked', fn); res(); };
-          v.addEventListener('seeked', fn); setTimeout(() => { v.removeEventListener('seeked', fn); rej(); }, 3000);
-        });
-        frames.push(await createImageBitmap(v, { resizeWidth: sw, resizeHeight: sh }));
-      }
-      if (frames.length) { framesReady = true; canvas.style.visibility = 'visible'; videoEl.style.display = 'none'; }
-      URL.revokeObjectURL(objUrl);
-    } catch (_) {}
-  }
-
-  function getScrollProgress() {
-    const vh = window.innerHeight;
-    const start = vh * 0.5, end = document.documentElement.scrollHeight - vh;
-    return Math.max(0, Math.min(1, (window.scrollY - start) / Math.max(1, end - start)));
-  }
-
-  function drawFrame(f) {
-    const cw = canvas.width, ch = canvas.height;
-    const s = Math.max(cw / f.width, ch / f.height);
-    ctx.drawImage(f, (cw - f.width * s) / 2, (ch - f.height * s) / 2, f.width * s, f.height * s);
-  }
-
-  function videoTick() {
-    const p = getScrollProgress();
-    if (framesReady && frames.length) {
-      const idx = Math.round(p * (frames.length - 1));
-      if (idx !== lastFrameIndex && frames[idx]) { lastFrameIndex = idx; drawFrame(frames[idx]); }
-    } else if (videoEl.duration && isFinite(videoEl.duration) && videoEl.readyState >= 1) {
-      const t = p * videoEl.duration;
-      if (!videoSeeking && Math.abs(videoEl.currentTime - t) > 0.001) { videoSeeking = true; videoEl.currentTime = t; }
+    function resizeCanvas() {
+      const dpr = Math.min(devicePixelRatio, 2);
+      const w = Math.round(canvas.getBoundingClientRect().width * dpr);
+      const h = Math.round(canvas.getBoundingClientRect().height * dpr);
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      lastFrameIndex = -1;
     }
-    requestAnimationFrame(videoTick);
-  }
 
-  videoEl.addEventListener('seeked', () => { videoSeeking = false; });
-  videoEl.addEventListener('stalled', () => { videoSeeking = false; });
-  videoEl.addEventListener('loadeddata', () => { videoEl.currentTime = 0; });
-  canvas.style.visibility = 'hidden';
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-  requestAnimationFrame(videoTick);
-  extractFrames();
+    async function extractFrames() {
+      try {
+        const blob = await (await fetch(VIDEO_URL, { mode: 'cors' })).blob();
+        const objUrl = URL.createObjectURL(blob);
+        const v = Object.assign(document.createElement('video'), {
+          muted: true, playsInline: true, crossOrigin: 'anonymous', preload: 'auto', src: objUrl
+        });
+        await new Promise((res, rej) => {
+          v.onloadedmetadata = res; v.onerror = rej; setTimeout(rej, 15000);
+        });
+        const sc = Math.min(1, 1280 / v.videoWidth);
+        const sw = Math.round(v.videoWidth * sc), sh = Math.round(v.videoHeight * sc);
+        const fc = Math.max(30, Math.min(120, Math.round(v.duration * 24)));
+        for (let i = 0; i < fc; i++) {
+          v.currentTime = (i / (fc - 1)) * (v.duration - 0.05);
+          await new Promise((res, rej) => {
+            const fn = () => { v.removeEventListener('seeked', fn); res(); };
+            v.addEventListener('seeked', fn); setTimeout(() => { v.removeEventListener('seeked', fn); rej(); }, 3000);
+          });
+          frames.push(await createImageBitmap(v, { resizeWidth: sw, resizeHeight: sh }));
+        }
+        if (frames.length) { framesReady = true; canvas.style.visibility = 'visible'; videoEl.style.display = 'none'; }
+        URL.revokeObjectURL(objUrl);
+      } catch (_) {}
+    }
+
+    function getScrollProgress() {
+      const vh = window.innerHeight;
+      const start = vh * 0.5, end = document.documentElement.scrollHeight - vh;
+      return Math.max(0, Math.min(1, (window.scrollY - start) / Math.max(1, end - start)));
+    }
+
+    function drawFrame(f) {
+      const cw = canvas.width, ch = canvas.height;
+      const s = Math.max(cw / f.width, ch / f.height);
+      ctx.drawImage(f, (cw - f.width * s) / 2, (ch - f.height * s) / 2, f.width * s, f.height * s);
+    }
+
+    function videoTick() {
+      const p = getScrollProgress();
+      if (framesReady && frames.length) {
+        const idx = Math.round(p * (frames.length - 1));
+        if (idx !== lastFrameIndex && frames[idx]) { lastFrameIndex = idx; drawFrame(frames[idx]); }
+      } else if (videoEl.duration && isFinite(videoEl.duration) && videoEl.readyState >= 1) {
+        const t = p * videoEl.duration;
+        if (!videoSeeking && Math.abs(videoEl.currentTime - t) > 0.001) { videoSeeking = true; videoEl.currentTime = t; }
+      }
+      requestAnimationFrame(videoTick);
+    }
+
+    videoEl.addEventListener('seeked', () => { videoSeeking = false; });
+    videoEl.addEventListener('stalled', () => { videoSeeking = false; });
+    videoEl.addEventListener('loadeddata', () => { videoEl.currentTime = 0; });
+    canvas.style.visibility = 'hidden';
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    requestAnimationFrame(videoTick);
+    extractFrames();
+  }
 
   // ── Gold Particles ────────────────────────────────────────────────
   const pc = document.getElementById('particles-canvas');
   const px = pc.getContext('2d');
   let parts = [];
 
+  // Fewer particles on mobile to keep the thread free
+  const particleDensity = isMobileDevice ? 28000 : 14000;
+
   function resizeParts() { pc.width = innerWidth; pc.height = innerHeight; makeParts(); }
   function makeParts() {
     parts = [];
-    const n = Math.floor((pc.width * pc.height) / 14000);
+    const n = Math.floor((pc.width * pc.height) / particleDensity);
     for (let i = 0; i < n; i++) {
       parts.push({
         x: Math.random() * pc.width, y: Math.random() * pc.height,
-        vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28,
-        r: Math.random() * 1.4 + .3,
-        op: Math.random() * .55 + .1,
+        vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22,
+        r: Math.random() * 1.2 + .3,
+        op: Math.random() * .5 + .1,
         gold: Math.random() > .55
       });
     }
   }
 
-  function animParts() {
+  let lastPartFrame = 0;
+  function animParts(ts) {
+    // On mobile cap particle animation at ~30fps to save the main thread
+    if (isMobileDevice && ts - lastPartFrame < 33) { requestAnimationFrame(animParts); return; }
+    lastPartFrame = ts;
     px.clearRect(0, 0, pc.width, pc.height);
     for (const p of parts) {
       p.x += p.vx; p.y += p.vy;
@@ -695,13 +722,15 @@ footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
     }
     requestAnimationFrame(animParts);
   }
-  resizeParts(); window.addEventListener('resize', resizeParts); animParts();
+  resizeParts(); window.addEventListener('resize', resizeParts); requestAnimationFrame(animParts);
 
-  // ── Hero fade on scroll ───────────────────────────────────────────
-  const heroEl = document.getElementById('hero');
-  window.addEventListener('scroll', () => {
-    heroEl.style.opacity = Math.max(0, 1 - window.scrollY / (innerHeight * .35));
-  }, { passive: true });
+  // ── Hero fade on scroll (desktop only — skip on mobile to avoid jank) ──
+  if (!isMobileDevice) {
+    const heroEl = document.getElementById('hero');
+    window.addEventListener('scroll', () => {
+      heroEl.style.opacity = Math.max(0, 1 - window.scrollY / (innerHeight * .35));
+    }, { passive: true });
+  }
 
   // ── Fixed Cards reveal ────────────────────────────────────────────
   const fixedCards = document.getElementById('fixed-cards');
